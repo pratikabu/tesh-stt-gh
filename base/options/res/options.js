@@ -523,7 +523,34 @@ function psInitJavascriptFunctions() {
 	$('input:radio[name=showIconsOnPage]').change(function() {
 		var valueChanged = isRightChangedEvent("showIconsOnPage", $(this).val());
 		if(valueChanged) {
-			showHidePageIconCustomizations();
+			if("false" == $('input:radio[name=showIconsOnPage]:checked').val()) {
+				chrome.permissions.remove({
+					permissions: ["webNavigation"],
+					origins: ["<all_urls>"]
+				}, function (removed) {
+					if (removed) {
+						showHidePageIconCustomizations();
+						console.log("Permission removed");
+					} else {
+						revertPageIconSelection();
+						console.log("Not removed");
+					}
+				});
+			} else {
+				chrome.permissions.request({
+					permissions: ["webNavigation"],
+					origins: ["<all_urls>"]
+				}, function (granted) {
+					if (granted) {
+						showHidePageIconCustomizations();
+						chrome.runtime.sendMessage({method: "bindWebLogic"});
+						console.log("Extension got the permisson");
+					} else {
+						revertPageIconSelection();
+						console.log("Extension did not got the permisson");
+					}
+				});
+			}
 		}
 	});
 	// show icons on page ends

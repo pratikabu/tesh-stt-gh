@@ -15,19 +15,8 @@
 		"scripts": [ "background.js", "toolbar-cx-menu.js" ],
 		"persistent": false
 	},
-
-	"content_scripts":[
-		{
-			"css":[ "pratikabu-stt.css" ],
-			"matches":[ "<all_urls>" ],
-			"js":[
-				"thirdparty/pratikabu-jquery-3.2.1.min.js",
-				"browserspecific/pratikabu-stt-impl.js",
-				"pratikabu-stt.js"
-			]
-		}
-	],
 	"permissions": [ "storage", "activeTab", "contextMenus" ],
+	"optional_permissions": [ "webNavigation", "<all_urls>" ],
 	"homepage_url": "https://scrolltotop.pratikabu.com",
 	"options_ui": {
 		"page": "options/options.html",

@@ -15,6 +15,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponseFunct
 	} else if("saveSettings" === request.method) {
 		saveSettings(request.sttData, sendResponseFunction);
 		return true;
+	} else if("bindWebLogic" === request.method) {
+		bindLogic();
 	}
 });
 
@@ -265,6 +267,35 @@ function validateData(data) {
 	
 	// if everything is good then return the data object
 	return data;
+}
+
+chrome.permissions.contains({
+	permissions: ["webNavigation"],
+	origins: ["<all_urls>"]
+}, function (result) {
+	if (result) {
+		bindLogic();
+	} else {
+		console.log("Extension don't have permission")
+	}
+});
+
+function loadCssAndJS(details) {
+	chrome.tabs.insertCSS(details.tabId, { file: "pratikabu-stt.css" }, function() {
+		chrome.tabs.executeScript(details.tabId, { file: "thirdparty/pratikabu-jquery-3.2.1.min.js" }, function() {
+			chrome.tabs.executeScript(details.tabId, { file: "browserspecific/pratikabu-stt-impl.js" }, function() {
+				chrome.tabs.executeScript(details.tabId, { file: "pratikabu-stt.js" }, function() {
+					console.log('JS and CSS loaded');
+				});
+			});
+		});
+	});
+	console.log('onCompleted: ${details.url}');
+}
+
+function bindLogic() {
+	chrome.webNavigation.onCompleted.removeListener(loadCssAndJS);
+	chrome.webNavigation.onCompleted.addListener(loadCssAndJS);
 }
 
 // set uninstall page

@@ -1,6 +1,11 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
-	fetchSettings(function(data) {
-		scrollToDirection(data.toolbarClickAction, tab);
+	chrome.tabs.executeScript(tab.id, {
+		code: "javascript:(function () {var paBody = document.body, paHtml = document.documentElement"
+			+ ", paMaxY = Math.max(paBody.scrollHeight, paBody.offsetHeight, paHtml.clientHeight"
+			+ ", paHtml.scrollHeight, paHtml.offsetHeight) - window.innerHeight, paBreakPoint = 300;"
+			+ " if(window.scrollY > paBreakPoint || paBreakPoint >= paMaxY && window.scrollY != 0)"
+			+ " window.scroll({top: 0, behavior: 'smooth'}); else window.scroll({top: paMaxY, "
+			+ "behavior: 'smooth'});})();"
 	});
 });
 
