@@ -7,6 +7,10 @@ var MIN_SPEED = 100;
 var MED_SPEED = (MAX_SPEED - MIN_SPEED) / 2;
 var lastSelectedIconChooserInput;// holds the input element of the last selected icon chooser
 var hasToolbarIconUpdated = false;// indicator to determine whether to update toolbar icon or not
+var permissionObject = {
+	permissions: ["webNavigation"],
+	origins: ["<all_urls>"]
+};
 
 /*******************************************************************************
  * Browser Independent code.
@@ -500,6 +504,11 @@ function updateIconInputValue(iconInputName, iconValue) {
 	$("input:hidden[name=" + iconInputName + "]").val(iconValue).trigger("change");
 }
 
+function revertPageIconSelection() {
+	var currentSelection = "true" == $('input:radio[name=showIconsOnPage]:checked').val();
+	$('input:radio[name=showIconsOnPage]').filter('[value=' + !currentSelection + ']').prop('checked', true);
+}
+
 function psInitJavascriptFunctions() {
 	randomOpenSupportDialog();
 	
@@ -524,10 +533,7 @@ function psInitJavascriptFunctions() {
 		var valueChanged = isRightChangedEvent("showIconsOnPage", $(this).val());
 		if(valueChanged) {
 			if("false" == $('input:radio[name=showIconsOnPage]:checked').val()) {
-				chrome.permissions.remove({
-					permissions: ["webNavigation"],
-					origins: ["<all_urls>"]
-				}, function (removed) {
+				chrome.permissions.remove(permissionObject, function (removed) {
 					if (removed) {
 						showHidePageIconCustomizations();
 						console.log("Permission removed");
@@ -537,10 +543,7 @@ function psInitJavascriptFunctions() {
 					}
 				});
 			} else {
-				chrome.permissions.request({
-					permissions: ["webNavigation"],
-					origins: ["<all_urls>"]
-				}, function (granted) {
+				chrome.permissions.request(permissionObject, function (granted) {
 					if (granted) {
 						showHidePageIconCustomizations();
 						chrome.runtime.sendMessage({method: "bindWebLogic"});

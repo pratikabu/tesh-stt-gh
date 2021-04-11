@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponseFunct
 		return true;
 	} else if("bindWebLogic" === request.method) {
 		bindLogic();
+		return true;
 	}
 });
 
@@ -103,8 +104,11 @@ function fetchSettings(sendResponseFunction) {
 			populateJson(localData, finalData);
 
 			populateNewDefaults(finalData);
-			
-			sendResponseFunction(finalData);
+
+			checkPermission(function (result) {
+				finalData.showIconsOnPage = '' + ("true" == finalData.showIconsOnPage && result);
+				sendResponseFunction(finalData);
+			});
 		});
 	});
 }
@@ -269,10 +273,14 @@ function validateData(data) {
 	return data;
 }
 
-chrome.permissions.contains({
-	permissions: ["webNavigation"],
-	origins: ["<all_urls>"]
-}, function (result) {
+function checkPermission(callback) {
+	chrome.permissions.contains({
+		permissions: ["webNavigation"],
+		origins: ["<all_urls>"]
+	}, callback);
+}
+
+checkPermission(function (result) {
 	if (result) {
 		bindLogic();
 	} else {

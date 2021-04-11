@@ -51,8 +51,8 @@
 				</div>
 
 				<div id="toolbarSettings" class="tableClass">
-					<div class="groupHeader">Toolbar &amp; Scrolling</div>
-					<div class="settinggroup">
+					<div class="groupHeader">Toolbar</div>
+					<div class="settinggroup hide">
 						<div class="settinglabel">Toolbar Click :</div>
 						<div class="settingoptions">
 							<input type="radio" name="toolbarClickAction" value="top"><span id="tcaUp">Scroll To Top</span>
@@ -68,17 +68,8 @@
 								<a class="iconChooser vertmidd" href="#">Choose Other Icon</a>
 							</span>
 						</div>
-						<div class="settinggroup">
-							<div class="settinglabel">Scrolling Speed :</div>
-							<div class="settingoptions">
-								<input type="text" id="scrollSpeedSliderId"
-									   data-slider="true" data-slider-range="100,2600" data-slider-step="100"
-									   data-slider-highlight="true" data-slider-snap="true" />
-								<span id="currentSpeed" style="font-size: 11px; margin-left: 10px; vertical-align: middle;"></span>
-							</div>
-						</div>
 					</div>
-					<div class="advancedProp settinggroup">
+					<div class="settinggroup">
 						<div class="settinglabel">Show Context Menu :</div>
 						<div class="settingoptions">
 							<input type="radio" name="showContextMenu" value="true"><span id="scmYes">Yes</span>
@@ -104,6 +95,15 @@
 							<input type="radio" name="imgHorizontalLocation" value="left"><span id="hlLeft">Left</span>
 							<input type="radio" name="imgHorizontalLocation" value="middle"><span id="hlMiddle">Middle</span>
 							<input type="radio" name="imgHorizontalLocation" value="right"><span id="hlRight">Right</span>
+						</div>
+					</div>
+					<div class="settinggroup">
+						<div class="settinglabel">Scrolling Speed :</div>
+						<div class="settingoptions">
+							<input type="text" id="scrollSpeedSliderId"
+								   data-slider="true" data-slider-range="100,2600" data-slider-step="100"
+								   data-slider-highlight="true" data-slider-snap="true" />
+							<span id="currentSpeed" style="font-size: 11px; margin-left: 10px; vertical-align: middle;"></span>
 						</div>
 					</div>
 					<div class="settinggroup">
@@ -296,10 +296,10 @@
 				</div>
 				</div>
 
-				<input type="button" id="advSettingsBut" value="Show More Settings" class="mybutton small red pageIconSettings" title="Choose different icons, configure advanced settings and more..." />
+				<input type="button" id="advSettingsBut" value="Show More Settings" class="mybutton small red pageIconSettings hide" title="Choose different icons, configure advanced settings and more..." />
 				<input type="button" id="defaultBut" value="Restore to Defaults" class="mybutton small green" title="Restore all settings to original values." />
 				<input type="button" id="exportImportBut" value="Export / Import" class="mybutton small blue" title="Export/Import settings cross browser." />
-				<input type="button" id="donateReviewBut" value="Support Me" class="mybutton small orange" />
+				<input type="button" id="donateReviewBut" value="Contribute" class="mybutton small orange" />
 
 			</div>
 			<div class="withLove"><a target="_blank" href="https://en.wikipedia.org/wiki/India" title="Read more about India">With &hearts; from India</a></div>
@@ -335,14 +335,14 @@
 		<div id="donateReviewDialog" class="mydialog tableClass myFonts" style="width: 500px; padding: 10px; z-index: 40; position: fixed; top: 50%; left: 50%; margin-left: -266px; margin-top: -120px; display: none; border: 2px SOLID #507C9E; border-radius: 3px;">
 			<div id="header" class="groupHeader">Show your support</div>
 			<div id="content">
-				<p align="justify">Show your support by either donating few bucks for its development, or leave a review so that it can reach to a bigger audience, even both.</p>
+				<p style="text-align: justify;">Show your support by either donating few bucks for its development, or leave a review so that it can reach to a bigger audience, even both.</p>
 				<div style="text-align: center;">
-					<div>
-						<span class="donateId"></span> |
-						<span class="reviewId"></span>
-						<p>Your small step makes a difference.<br/>&nbsp;</p>
-					</div>
-					
+					<span class="donateId"></span> |
+					<span class="reviewId"></span>
+				</div>
+				<p style="text-align: justify;">You can also support the development/localization on <a target="_blank" href="https://github.com/pratikabu/scrolltotop">GitHub</a>.
+					See the <a target="_blank" href="https://github.com/pratikabu/scrolltotop/issues">issue board</a> to contribute.</p>
+				<div style="text-align: center;">
 					<div>
 						<span style="float: left;"><input id="supportPromptCBId" type="checkbox" /><span id="supportPromptId">I've supported. Don't prompt.</span></span>
 						<input type="button" id="drClose" value="Close" class="mybutton small blue dialogCloseButton" style="float: right;" />

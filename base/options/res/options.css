@@ -126,9 +126,9 @@ a.mylink {
 	border: 1px solid #2094F0;
 }
 
-.advancedProp {
+/* .advancedProp {
 	display: none;
-}
+} */
 
 .donateButton {
 	background: url(donate.gif) no-repeat;
@@ -224,6 +224,10 @@ hr {
 .withLove a:hover {
 	color: #989898;
 	text-decoration: none;
+}
+
+.hide {
+	display: none !important;
 }
 
 @media screen and (max-width: 750px) {
