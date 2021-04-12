@@ -1,15 +1,5 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
-	if(tab.url.startsWith('chrome') || tab.url.startsWith('moz-extension') || tab.url.startsWith('about')) {
-		return;
-	}
-	chrome.tabs.executeScript(tab.id, {
-		code: "javascript:(function () {var paBody = document.body, paHtml = document.documentElement"
-			+ ", paMaxY = Math.max(paBody.scrollHeight, paBody.offsetHeight, paHtml.clientHeight"
-			+ ", paHtml.scrollHeight, paHtml.offsetHeight) - window.innerHeight, paBreakPoint = 300;"
-			+ " if(window.scrollY > paBreakPoint || paBreakPoint >= paMaxY && window.scrollY != 0)"
-			+ " window.scroll({top: 0, behavior: 'smooth'}); else window.scroll({top: paMaxY, "
-			+ "behavior: 'smooth'});})();"
-	});
+	scrollToDirection("flip", tab);
 });
 
 function resetContextMenuAndToolbarIcon() {
@@ -58,10 +48,30 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 	}
 });
 
-function scrollToDirection(direction, currentTab) {
-	if(!direction)
+function scrollToDirection(direction, tab) {
+	if(tab.url.startsWith('chrome') || tab.url.startsWith('moz-extension') || tab.url.startsWith('about')) {
 		return;
-	chrome.tabs.sendMessage(currentTab.id, {pratikabusttaction: direction});
+	}
+
+	var script = "javascript:(function () {";
+	if("flip" == direction) {
+		script += "var paBody = document.body, paHtml = document.documentElement"
+			+ ", paMaxY = Math.max(paBody.scrollHeight, paBody.offsetHeight, paHtml.clientHeight"
+			+ ", paHtml.scrollHeight, paHtml.offsetHeight) - window.innerHeight, paBreakPoint = 300;"
+			+ " if(window.scrollY > paBreakPoint || paBreakPoint >= paMaxY && window.scrollY != 0)"
+			+ " window.scroll({top: 0, behavior: 'smooth'}); else window.scroll({top: paMaxY, "
+			+ "behavior: 'smooth'});";
+	} else if("top" == direction) {
+		script += "window.scroll({top: 0, behavior: 'smooth'});";
+	} else if("bottom" == direction) {
+		script += "var paBody = document.body, paHtml = document.documentElement"
+			+ ", paMaxY = Math.max(paBody.scrollHeight, paBody.offsetHeight, paHtml.clientHeight"
+			+ ", paHtml.scrollHeight, paHtml.offsetHeight) - window.innerHeight;"
+			+ " window.scroll({top: paMaxY, behavior: 'smooth'});";
+	}
+	script += "})();";
+
+	chrome.tabs.executeScript(tab.id, { code: script });
 }
 
 function setToolbarIcon(selectedIconId) {

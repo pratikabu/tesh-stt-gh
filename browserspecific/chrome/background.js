@@ -289,7 +289,7 @@ checkPermission(function (result) {
 });
 
 function loadCssAndJS(details) {
-	if(tab.url.startsWith('chrome') || details.url.startsWith('moz-extension') || details.url.startsWith('about')) {
+	if(details.url.startsWith('chrome') || details.url.startsWith('moz-extension') || details.url.startsWith('about')) {
 		return;
 	}
 	chrome.tabs.insertCSS(details.tabId, { file: "pratikabu-stt.css" }, function() {
