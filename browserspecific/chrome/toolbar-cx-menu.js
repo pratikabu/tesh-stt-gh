@@ -1,4 +1,7 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
+	if(tab.url.startsWith('chrome') || tab.url.startsWith('moz-extension') || tab.url.startsWith('about')) {
+		return;
+	}
 	chrome.tabs.executeScript(tab.id, {
 		code: "javascript:(function () {var paBody = document.body, paHtml = document.documentElement"
 			+ ", paMaxY = Math.max(paBody.scrollHeight, paBody.offsetHeight, paHtml.clientHeight"

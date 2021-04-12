@@ -289,6 +289,9 @@ checkPermission(function (result) {
 });
 
 function loadCssAndJS(details) {
+	if(tab.url.startsWith('chrome') || details.url.startsWith('moz-extension') || details.url.startsWith('about')) {
+		return;
+	}
 	chrome.tabs.insertCSS(details.tabId, { file: "pratikabu-stt.css" }, function() {
 		chrome.tabs.executeScript(details.tabId, { file: "thirdparty/pratikabu-jquery-3.2.1.min.js" }, function() {
 			chrome.tabs.executeScript(details.tabId, { file: "browserspecific/pratikabu-stt-impl.js" }, function() {
@@ -298,7 +301,7 @@ function loadCssAndJS(details) {
 			});
 		});
 	});
-	console.log('onCompleted: ${details.url}');
+	console.log('onCompleted: ' + details.url);
 }
 
 function bindLogic() {
