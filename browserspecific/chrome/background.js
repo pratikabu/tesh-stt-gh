@@ -289,7 +289,8 @@ checkPermission(function (result) {
 });
 
 function loadCssAndJS(details) {
-	if(details.url.startsWith('chrome') || details.url.startsWith('moz-extension') || details.url.startsWith('about')) {
+	if(0 !== details.frameId || -1 !== details.parentFrameId // only target main frame
+		|| details.url.startsWith('chrome') || details.url.startsWith('moz-extension') || details.url.startsWith('about')) {
 		return;
 	}
 	chrome.tabs.insertCSS(details.tabId, { file: "pratikabu-stt.css" }, function() {
