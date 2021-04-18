@@ -536,10 +536,8 @@ function psInitJavascriptFunctions() {
 				chrome.permissions.remove(permissionObject, function (removed) {
 					if (removed) {
 						showHidePageIconCustomizations();
-						console.log("Permission removed");
 					} else {
 						revertPageIconSelection();
-						console.log("Not removed");
 					}
 				});
 			} else {
@@ -547,10 +545,8 @@ function psInitJavascriptFunctions() {
 					if (granted) {
 						showHidePageIconCustomizations();
 						chrome.runtime.sendMessage({method: "bindWebLogic"});
-						console.log("Extension got the permisson");
 					} else {
 						revertPageIconSelection();
-						console.log("Extension did not got the permisson");
 					}
 				});
 			}

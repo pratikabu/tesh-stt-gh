@@ -283,8 +283,6 @@ function checkPermission(callback) {
 checkPermission(function (result) {
 	if (result) {
 		bindLogic();
-	} else {
-		console.log("Extension don't have permission")
 	}
 });
 
@@ -297,12 +295,11 @@ function loadCssAndJS(details) {
 		chrome.tabs.executeScript(details.tabId, { file: "thirdparty/pratikabu-jquery-3.2.1.min.js" }, function() {
 			chrome.tabs.executeScript(details.tabId, { file: "browserspecific/pratikabu-stt-impl.js" }, function() {
 				chrome.tabs.executeScript(details.tabId, { file: "pratikabu-stt.js" }, function() {
-					console.log('JS and CSS loaded');
+					// successfully loaded the extension files
 				});
 			});
 		});
 	});
-	console.log('onCompleted: ' + details.url);
 }
 
 function bindLogic() {
