@@ -306,8 +306,9 @@ function loadCssAndJS(details) {
 }
 
 function bindLogic() {
-	chrome.webNavigation.onCompleted.removeListener(loadCssAndJS);
-	chrome.webNavigation.onCompleted.addListener(loadCssAndJS);
+	if(chrome.webNavigation.onCompleted.hasListener(loadCssAndJS))
+		chrome.webNavigation.onCompleted.removeListener(loadCssAndJS);
+	chrome.webNavigation.onCompleted.addListener(loadCssAndJS, {url: [{urlPrefix : 'http'}]});
 }
 
 // set uninstall page
