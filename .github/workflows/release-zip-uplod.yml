@@ -20,8 +20,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: git log
-        run: git status
       - name: Build with Ant
         run: ant -noinput -buildfile ants/build.xml
       - name: Upload generated Zip file
