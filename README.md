@@ -41,4 +41,3 @@ javascript:(function () {var paBody = document.body, paHtml = document.documentE
 ```
 
 Read more about the [author](https://pratikabu.com).
-Test
