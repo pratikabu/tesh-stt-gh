@@ -20,9 +20,11 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: git log
+        run: git log --oneline | head
       - name: Build with Ant
         run: ant -noinput -buildfile ants/build.xml
-      - name: Upload Chrome Zip file
+      - name: Upload generated Zip file
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
