@@ -24,11 +24,8 @@ jobs:
         run: ant -noinput -buildfile ants/build.xml
       - name: rename zips with version
         run: |
-          for f in generated/zip-deploy/*.zip; do echo mv -- "$f" "${f%.zip}-v2.zip"; done
-          ls -l generated/zip-deploy
-          mv -- generated/zip-deploy/chrome-stt.zip generated/zip-deploy/chrome-stt-v2.zip
-          mv -- generated/zip-deploy/firefox-stt.zip generated/zip-deploy/firefox-stt-v2.zip
-          ls -l
+          mv -- generated/zip-deploy/chrome-stt.zip generated/zip-deploy/chrome-stt-${{ env.github.ref_name }}.zip
+          mv -- generated/zip-deploy/firefox-stt.zip generated/zip-deploy/firefox-stt-${{ env.github.ref_name }}.zip
       - name: Upload generated Zip file
         uses: softprops/action-gh-release@v1
         env:
@@ -36,5 +33,5 @@ jobs:
         with:
           fail_on_unmatched_files: true
           files: |
-            generated/zip-deploy/chrome-stt-v2.zip
-            generated/zip-deploy/firefox-stt-v2.zip
+            generated/zip-deploy/chrome-stt-${{ env.github.ref_name }}.zip
+            generated/zip-deploy/firefox-stt-${{ env.github.ref_name }}.zip
