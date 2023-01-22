@@ -27,5 +27,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       name: Uploading generated zip files
       with:
-        name: extension-deploy-${{ env.date-time-env }}
+        name: zips-${{ env.date-time-env }}
         path: generated/zip-deploy/*.zip
