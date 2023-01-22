@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  generate-zips:
+  pr-generate-zips:
 
     runs-on: ubuntu-latest
 
