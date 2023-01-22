@@ -23,7 +23,7 @@ jobs:
       - name: Build with Ant
         run: ant -noinput -buildfile ants/build.xml
       - name: rename zips with version
-        run: for f in generated/zip-deploy/*.zip; do echo mv -- "$f" "${f%.zip}_v2.zip"; done
+        run: for f in generated/zip-deploy/*.zip; do echo mv -- "$f" "${f%.zip}-v2.zip"; done
       - name: Upload generated Zip file
         uses: softprops/action-gh-release@v1
         env:
