@@ -26,5 +26,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       name: Uploading generated zip files
       with:
-        name: my-artifact
         path: generated/zip-deploy/chrome-stt.zip
