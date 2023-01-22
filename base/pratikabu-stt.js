@@ -1,4 +1,4 @@
-/*****************************************
+/******************************************
 ************** This file contains code which is browser independent ****************
 ************** Write browser dependent code in the specific browser dependent js file. *********
 ******************************************/
