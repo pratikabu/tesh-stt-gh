@@ -1,4 +1,4 @@
-name: Auto Release on Tag Creation
+name: Auto zip Upload on Release Creation
 
 on:
   release:
