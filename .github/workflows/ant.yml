@@ -27,4 +27,4 @@ jobs:
       name: Uploading generated zip files
       with:
         name: my-artifact
-        path: generated/zip-deploy/*.zip
+        path: generated/zip-deploy/chrome-stt.zip
